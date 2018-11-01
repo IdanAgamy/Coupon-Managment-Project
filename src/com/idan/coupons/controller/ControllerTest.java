@@ -121,19 +121,16 @@ public class ControllerTest {
 		try {
 			cc.deleteExpiredCoupon();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
 	private static void companyControllerTest() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	private static void customernControllerTest() {
-		// TODO Auto-generated method stub
 		
 	}
 	

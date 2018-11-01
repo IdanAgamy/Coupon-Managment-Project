@@ -22,13 +22,9 @@ public class ExceptionHandler implements ExceptionMapper<Throwable>{
 			return Response.status(error.getErrorCode()).entity(error).build();
 		}
 		
-		else if(exception instanceof Exception) {
-			//TODO implement logger.
-			error = new ApplicationError(500, "General error",exception.getMessage());
-			return Response.status(error.getErrorCode()).entity(error).build();
-		}
-		
-		return Response.status(600).entity(exception).build();
+		//TODO implement logger.
+		error = new ApplicationError(601, "General error",exception.getMessage());
+		return Response.status(error.getErrorCode()).entity(error).build();
 	}
 
 }

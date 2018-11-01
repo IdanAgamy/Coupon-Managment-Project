@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/rest/acc")
+@WebFilter("/rest")
 public class AccessFilter implements Filter{
 
 	@Override
@@ -23,8 +23,8 @@ public class AccessFilter implements Filter{
 		HttpServletRequest req = (HttpServletRequest) request;
 		
 		HttpSession session = req.getSession(false);
-		
-		if(session != null) {
+		String pageRequest = req.getRequestURL().toString();
+		if(session != null || pageRequest.endsWith("/login") || pageRequest.endsWith("/coupons") || pageRequest.endsWith("/companies")) {
 			Cookie[] cookies = req.getCookies();
 			for(Cookie cookie:cookies) {
 				req.setAttribute(cookie.getName(), cookie.getValue());

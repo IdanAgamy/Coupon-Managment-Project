@@ -17,7 +17,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.idan.coupons.beans.Company;
 import com.idan.coupons.controller.CompanyController;
+import com.idan.coupons.enums.ErrorType;
+import com.idan.coupons.enums.UserType;
 import com.idan.coupons.exceptions.ApplicationException;
+import com.idan.coupons.utils.DateUtils;
 
 @Path("/companies")
 @Produces(MediaType.APPLICATION_JSON)
@@ -72,24 +75,40 @@ public class CompanyApi {
 	}
 	
 	@PUT
-	public void updateUser (Company company) throws ApplicationException{
+	public void updateUser (@Context HttpServletRequest request, Company company) throws ApplicationException{
 		
-		System.out.println(company);
-		companyController.updateCompany(company);
+		if (isAuthorizedToChange(request, company.getCompanyId())) {
+			System.out.println(company);
+			companyController.updateCompany(company);
+		}
+		else {
+			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
+					+" Unauthorized action.");
+		}
 	}
 	
 	@DELETE
 	@Path("/{companyId}")
 	//http://localhost:8080/CouponPhaseTwo/rest/companies/10
-	public void removeUser(@PathParam("companyId") long companyId) throws ApplicationException{
+	public void removeUser(@Context HttpServletRequest request, @PathParam("companyId") long companyId) throws ApplicationException{
 		
-		System.out.println(companyId);
-		companyController.removeCompanyByCompanyID(companyId);
+		if (isAuthorizedToChange(request, companyId)) {
+			System.out.println(companyId);
+			companyController.removeCompanyByCompanyID(companyId);
+		}
+		else {
+			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
+					+" Unauthorized action.");
+		}
 	}
 	
-	private boolean isAccessToChange(@Context HttpServletRequest request, long companyId) {
+	private boolean isAuthorizedToChange(HttpServletRequest request, long companyId) {
 		String userType = (String) request.getAttribute("userType");
 		long userID = Long.parseLong((String) request.getAttribute("userID"));
+		
+		if(userType.equals(UserType.ADMIN.name()) || userID == companyId) {
+			return true;
+		}
 		
 		
 		return false;

@@ -22,13 +22,13 @@ public class DeleteExpiredCouponTimerTask extends TimerTask{
 
 		GregorianCalendar gc = new GregorianCalendar();
 
-//		gc.set(Calendar.HOUR, 00);
-//		gc.set(Calendar.MINUTE, 00);
-//		gc.set(Calendar.SECOND, 00);
-//
-//		gc.add(Calendar.DAY_OF_MONTH, 1);
+		gc.set(Calendar.HOUR, 00);
+		gc.set(Calendar.MINUTE, 00);
+		gc.set(Calendar.SECOND, 00);
+
+		gc.add(Calendar.DAY_OF_MONTH, 1);
 		
-		gc.add(Calendar.SECOND, 10);
+//		gc.add(Calendar.SECOND, 10);
 
 		Timer timer = new Timer();
 
