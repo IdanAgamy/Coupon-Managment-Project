@@ -9,7 +9,7 @@ import com.idan.coupons.enums.InputErrorType;
 
 @XmlRootElement
 public class ApplicationError {
-	
+
 	private Integer errorCode;
 	private String errorType;
 	private String errorMessage;
@@ -25,7 +25,7 @@ public class ApplicationError {
 		this.errorType = errorType;
 		this.errorMessage = errorMessage;
 	}
-	
+
 	public ApplicationError(Integer errorCode, String errorMessage, List<InputErrorType> inputErrorTypes) {
 		super();
 		this.errorCode = errorCode;
@@ -36,11 +36,11 @@ public class ApplicationError {
 	public Integer getErrorCode() {
 		return errorCode;
 	}
-	
+
 	public void setErrorCode(Integer errorCode) {
 		this.errorCode = errorCode;
 	}
-	
+
 	public String getErrorType() {
 		return errorType;
 	}
@@ -52,7 +52,7 @@ public class ApplicationError {
 	public String getErrorMessage() {
 		return errorMessage;
 	}
-	
+
 	public List<InputErrorType> getInputErrorTypes() {
 		return inputErrorTypes;
 	}
@@ -64,15 +64,15 @@ public class ApplicationError {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public String toString() {
 		return "ApplicationError [errorCode=" + errorCode + ", errorMessage=" + errorMessage + ", inputErrorTypes="
 				+ inputErrorTypes + "]";
 	}
 
-	
+
 
 }

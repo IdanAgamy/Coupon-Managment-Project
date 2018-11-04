@@ -18,12 +18,13 @@ public class ExceptionHandler implements ExceptionMapper<Throwable>{
 			if (error.getErrorCode() == 603) {
 				error.setInputErrorTypes(applicationException.getTypes()); 
 			}
+			// In case of SYSTEM ERROR we will log the error
 			if (error.getErrorCode() == 605) {
 				//TODO implement logger.
 			}
 			return Response.status(error.getErrorCode()).entity(error).build();
 		}
-		
+		// In case of unexpected error we will log the error
 		exception.printStackTrace();
 		//TODO implement logger.
 		error = new ApplicationError(601, "General error",exception.getMessage());

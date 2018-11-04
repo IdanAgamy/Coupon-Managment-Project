@@ -38,7 +38,7 @@ public class CouponApi {
 	}
 
 	/**
-	 * Sending list of all coupons in DB.
+	 * Getting list of all coupons from DB.
 	 * @return List collection of all the coupons in the coupon table.
 	 * @throws ApplicationException
 	 */
@@ -94,7 +94,7 @@ public class CouponApi {
 	}
 
 	/**
-	 * Removing coupon from coupon table
+	 * Removing coupon from coupon table.
 	 * @param request - an HttpServletRequest object, for validating use.
 	 * @param couponId - the couponID as a long to remove from the DB.
 	 * @throws ApplicationException
@@ -133,7 +133,7 @@ public class CouponApi {
 	}
 
 	/**
-	 * removing a coupon-customer relation after customer cancelled a purchase.
+	 * Removing a coupon-customer relation after customer cancelled a purchase.
 	 * @param request - an HttpServletRequest object, for retrieving the customer data.
 	 * @param couponID - Long parameter of the coupon ID.
 	 * @throws ApplicationException
@@ -163,7 +163,7 @@ public class CouponApi {
 	@GET
 	@Path("/byCouponType")
 	//http://localhost:8080/CouponPhaseTwo/rest/coupons/byCouponType?couponType=Food
-	public List<Coupon> getCompanyByType(@QueryParam("couponType") CouponType couponType) throws ApplicationException{
+	public List<Coupon> getCouponByType(@QueryParam("couponType") CouponType couponType) throws ApplicationException{
 		//System.out.println(couponController.getCouponByType(couponType));
 		return couponController.getCouponByType(couponType);
 	}
@@ -227,7 +227,7 @@ public class CouponApi {
 	@Path("/purchasedCoupons")
 	//http://localhost:8080/CouponPhaseTwo/rest/coupons/purchasedCoupons
 	public List<Coupon> getCouponsByCustomerID(@Context HttpServletRequest request) throws ApplicationException{
-		//TODO- implement getting customerID from cookie
+		
 		String customerIDStr = (String) request.getAttribute("userID");
 		if(customerIDStr != null) {
 			Long customerID = Long.valueOf(customerIDStr);

@@ -53,7 +53,7 @@ public class ValidationUtils {
 		}
 		boolean isLeapYear = false;
 		
-		// For February doing a leap year test.
+		// For February doing a leap year check.
 		if(month == 2) {
 			if(year % 4 == 0)
 			{

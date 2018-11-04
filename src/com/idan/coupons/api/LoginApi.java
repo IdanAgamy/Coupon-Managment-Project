@@ -30,6 +30,10 @@ import com.idan.coupons.utils.CookieUtil;
 @Consumes(MediaType.APPLICATION_JSON)
 public class LoginApi {
 	
+	/**
+	 * method for debugging purpose only
+	 * TODO - delete method
+	 */
 	@GET
 	public void hhhyy(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		
@@ -45,16 +49,27 @@ public class LoginApi {
 		System.out.println(session);
 	}
 	
+	/**
+	 * logging in to the web site.
+	 * @param request - an HttpServletRequest object, for creating session and cookies
+	 * @param response - an HttpServletResponse object, for setting the response to the client.
+	 * @param userLoginInfo - UserLoginInfo object with the login parameters
+	 * @return - response with the status for the client
+	 * @throws ApplicationException
+	 */
 	@POST
 	public Response login(@Context HttpServletRequest request, @Context HttpServletResponse response, UserLoginInfo userLoginInfo) throws ApplicationException {
 		System.out.println(userLoginInfo);
 		
 		if (userLoginInfo != null) {
-			if(userLoginInfo.getName().equals("admin") && userLoginInfo.getPassword().equals("1234") && userLoginInfo.getEmail().equals("admin@coupons")) {
-				request.getSession();					
+			// Validating the admin login.
+			if(userLoginInfo.getUserType() == UserType.ADMIN && userLoginInfo.getName().equals("admin") && userLoginInfo.getPassword().equals("1234") && userLoginInfo.getEmail().equals("admin@coupons")) {
+				request.getSession();
+				// Adding cookies for admin.
 				response.addCookie(new Cookie("userType",UserType.ADMIN.name()));
 				return Response.status(200).build();
 			}
+			// Validating a company login.
 			if(userLoginInfo.getUserType() == UserType.COMPANY) {
 				CompanyController companyConroller = new CompanyController();
 				Company company = companyConroller.login(userLoginInfo.getName(), userLoginInfo.getPassword());
@@ -66,14 +81,14 @@ public class LoginApi {
 				}
 				return Response.status(401).build();
 			}
+			// Validating a customer login.
 			if(userLoginInfo.getUserType() == UserType.CUSTOMER) {
 				CustomerController customerController = new CustomerController();
 				Customer customer = customerController.login(userLoginInfo.getEmail(), userLoginInfo.getPassword());
 				if(customer != null) {
 					request.getSession();	
 					List<Cookie> loginCookies = CookieUtil.loginCookies(customer);
-					response = CookieUtil.addCookies(response, loginCookies);	
-					response.setStatus(200);
+					response = CookieUtil.addCookies(response, loginCookies);
 					return Response.status(200).build();
 				}
 				return Response.status(401).build();

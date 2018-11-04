@@ -22,7 +22,8 @@ public class CompanyDao{
 	/**
 	 * Sending a query to the DB to add a new company to the company table.
 	 * @param company - the company as a Company object to add to the DB.
-	 * @throws ApplicationException. 
+	 * @return Long of the ID of the created company.
+	 * @throws ApplicationException
 	 */
 	public Long createCompany(Company company) throws ApplicationException {
 
@@ -37,7 +38,7 @@ public class CompanyDao{
 			
 			// Creating a string which will contain the query.
 			String sql = "insert into company (CompanyName, CompanyPassword, CompanyEMail) values (?,?,?)";
-			preparedStatement= connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+			preparedStatement= connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			// Switching the question marks with the input from the user.
 			preparedStatement.setString(1, company.getCompanyName());
@@ -224,7 +225,12 @@ public class CompanyDao{
 		
 	}
 	
-	
+	/**
+	 * Sending a query to the DB to get information of a company by name.
+	 * @param companyName - a String parameter represent the name of the requested company.
+	 * @return Company object of the requested company.
+	 * @throws ApplicationException
+	 */
 	public Company getCompanyByComapnyName(String companyName) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -274,6 +280,12 @@ public class CompanyDao{
 		return company;
 	}
 
+	/**
+	 * Sending a query to the DB to get information of a company by Email.
+	 * @param companyEmail - a String parameter represent the e-mail of the requested company.
+	 * @return Company object of the requested company.
+	 * @throws ApplicationException
+	 */
 	public Company getCompanyByComapnyEmail(String companyEmail) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -380,8 +392,7 @@ public class CompanyDao{
 	 * Sending a query to the DB to get if there is a company with that password to approve login.
 	 * @param companyName - String of the company name.
 	 * @param companyPasword - String of that company password
-	 * @return true  - company and password match.
-	 * 		   false - company and password do not match.
+	 * @return The company object that fits the parameters.
 	 * @throws ApplicationException. 
 	 */
 	public Company login (String companyName, String companyPasword) throws ApplicationException {
@@ -430,6 +441,13 @@ public class CompanyDao{
 		
 	}
 	
+	/**
+	 * Sending a query to the DB to get if there is a company using that email for creation.
+	 * @param companyEmail - String of that company email.
+	 * @return true - Email in use by other company.
+	 * 		   false - Email not in use by other company.
+	 * @throws ApplicationException
+	 */
 	public boolean isCompanyExistByEmail(String companyEmail) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -467,6 +485,14 @@ public class CompanyDao{
 		}
 	}
 	
+	/**
+	 * Sending a query to the DB to get if there is a company using that email for update.
+	 * @param companyID - a long parameter represent the ID of the requested company.
+	 * @param companyEmail - String of that company email.
+	 * @return true - Email in use by other company.
+	 * 		   false - Email not in use by other company.
+	 * @throws ApplicationException
+	 */
 	public boolean isCompanyEmailExistForUpdate(Long companyID, String companyEmail) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -505,6 +531,13 @@ public class CompanyDao{
 		}
 	}
 	
+	/**
+	 * Sending a query to the DB to get if there is a company using that name for creation.
+	 * @param companyName - String of that company name.
+	 * @return true - Name in use by other company.
+	 * 		   false - Name not in use by other company.
+	 * @throws ApplicationException
+	 */
 	public boolean isCompanyExistByName(String companyName) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -542,6 +575,14 @@ public class CompanyDao{
 		}
 	}
 	
+	/**
+	 * Sending a query to the DB to get if there is a company using that name for creation.
+	 * @param companyID - a long parameter represent the ID of the requested company.
+	 * @param companyName - String of that company name.
+	 * @return true - Name in use by other company.
+	 * 		   false - Name not in use by other company.
+	 * @throws ApplicationException
+	 */
 	public boolean isCompanyNameExistForUpdate(long companyID, String companyName) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

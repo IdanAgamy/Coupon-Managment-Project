@@ -35,7 +35,7 @@ public class CompanyApi {
 	}
 
 	/**
-	 * Sending list of all companies in DB.
+	 * Getting list of all companies from DB.
 	 * @return List collection of all the companies in the company table
 	 * @throws ApplicationException
 	 */
@@ -62,7 +62,7 @@ public class CompanyApi {
 	}
 
 	/**
-	 * Getting information of a company.
+	 * Getting information of a company by name.
 	 * @param companyName - a String parameter represent the name of the requested company.
 	 * @return Company object of the requested company.
 	 * @throws ApplicationException
@@ -76,8 +76,7 @@ public class CompanyApi {
 	}
 
 	/**
-	 * 
-	 * Getting information of a company.
+	 * Getting information of a company by Email.
 	 * @param companyName - a String parameter represent the e-mail of the requested company.
 	 * @return Company object of the requested company.
 	 * @throws ApplicationException
@@ -120,7 +119,7 @@ public class CompanyApi {
 	/**
 	 * Removing company from company table.
 	 * @param request - an HttpServletRequest object, for validating use.
-	 * @param companyId - the company as a Company object to remove from the DB.
+	 * @param companyId - a long parameter represent the ID of the requested company.
 	 * @throws ApplicationException
 	 */
 	@DELETE

@@ -178,25 +178,25 @@ public class DaoTester {
 		
 	}
 	
-	private static void removeCustomerPurchasesByCustomerIDTest(CouponDao cd) {
-		System.out.println("**********Testing remove Customer Purchases By Customer ID************");
-		buyCouponTest(cd);
-		
-		try {
-			cd.removeCustomerPurchasesByCustomerID(3l);
-		} catch (ApplicationException e) {
-			// 
-			e.printStackTrace();
-		}
-		
-		try {
-			verify("press enter after checking mysql");
-		} catch (IOException e) {
-			// 
-			e.printStackTrace();
-		}
-		
-	}
+//	private static void removeCustomerPurchasesByCustomerIDTest(CouponDao cd) {
+//		System.out.println("**********Testing remove Customer Purchases By Customer ID************");
+//		buyCouponTest(cd);
+//		
+//		try {
+//			cd.removeCustomerPurchasesByCustomerID(3l);
+//		} catch (ApplicationException e) {
+//			// 
+//			e.printStackTrace();
+//		}
+//		
+//		try {
+//			verify("press enter after checking mysql");
+//		} catch (IOException e) {
+//			// 
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 //	private static void removeCouponByCompanyIDTest(CouponDao cd) {
 //		System.out.println("**********Testing remove Coupon By Company ID************");

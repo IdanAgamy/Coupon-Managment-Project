@@ -24,9 +24,10 @@ public class CustomerDao{
 	/**
 	 * Sending a query to the DB to add a new customer to the customer table.
 	 * @param customer - the customer as a Customer object to add to the DB
-	 * @throws ApplicationException 
+	 * @return Long of the ID of the created customer.
+	 * @throws ApplicationException
 	 */
-	public void createCustomer(Customer customer) throws ApplicationException {
+	public Long createCustomer(Customer customer) throws ApplicationException {
 
 		PreparedStatement preparedStatement = null;
 		Connection connection = null;
@@ -38,7 +39,7 @@ public class CustomerDao{
 			// Creating a string which will contain the query
 			String sql = "INSERT INTO customer (CustomerName, CustomerPassword, CustomerEmail) values (?, ?, ?)";
 
-			preparedStatement= connection.prepareStatement(sql);
+			preparedStatement= connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			preparedStatement.setString(1, customer.getCustomerName());
 			preparedStatement.setString(2, customer.getCustomerPassword());
@@ -47,7 +48,11 @@ public class CustomerDao{
 			// TODO delete print
 			System.out.println(preparedStatement); // Checking the query sent to the server
 			
-			preparedStatement.executeUpdate();
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			if(resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+			return null;
 		} 
 
 		catch (SQLException e) {
@@ -198,7 +203,12 @@ public class CustomerDao{
 	}
 	
 	
-
+	/**
+	 * Sending a query to the DB to get information of customers by name.
+	 * @param customerName - a String parameter represent the name of the requested customers.
+	 * @return List of customer objects of the requested company.
+	 * @throws ApplicationException
+	 */
 	public List<Customer> getCustomersByCustomerName(String customerName) throws ApplicationException {
 		ArrayList<Customer> customers = new ArrayList<>();
 		Connection connection = null;
@@ -242,7 +252,12 @@ public class CustomerDao{
 		return customers;
 	}
 
-
+	/**
+	 * Sending a query to the DB to get information of a customer by Email.
+	 * @param customerEmail - a String parameter represent the e-mail of the requested customer.
+	 * @return Company object of the requested customer.
+	 * @throws ApplicationException
+	 */
 	public Customer getCustomerByCustomerEmail(String customerEmail) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -338,8 +353,7 @@ public class CustomerDao{
 	 * Sending a query to the DB to get if there is a customer with that password to approve login.
 	 * @param customerName - String parameter of the customer name.
 	 * @param customerPasword - String parameter of that customer password
-	 * @return true  - password is correct.
-	 * 		   false - password is incorrect.
+	 * @return The customer object that fits the parameters.
 	 * @throws ApplicationException 
 	 */
 	public Customer login (String customerEmail, String customerPassword) throws ApplicationException {
@@ -387,8 +401,13 @@ public class CustomerDao{
 		
 	}
 	
-	
-	
+	/**
+	 * Sending a query to the DB to get if there is a customer using that email for creation.
+	 * @param customerEmail - String of that customer email.
+	 * @return true - Email in use by other customer.
+	 * 		   false - Email not in use by other customer.
+	 * @throws ApplicationException
+	 */
 	public boolean isCustomerExistByEmail(String customerEmail) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -426,6 +445,14 @@ public class CustomerDao{
 		}
 	}
 	
+	/**
+	 * Sending a query to the DB to get if there is a customer using that email for update.
+	 * @param customerID - a long parameter represent the ID of the requested customer.
+	 * @param customerEmail - String of that customer email.
+	 * @return true - Email in use by other customer.
+	 * 		   false - Email not in use by other customer.
+	 * @throws ApplicationException
+	 */
 	public boolean isCustomerEmailExistForUpdate(Long customerID, String customerEmail) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

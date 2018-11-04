@@ -26,6 +26,11 @@ public class CustomerController {
 		this.customerDao=new CustomerDao();
 	}
 	
+	/**
+	 * Creating a customer in the DB.
+	 * @param customer - the customer as a Customer object to add to the DB.
+	 * @throws ApplicationException
+	 */
 	public void createCustomer(Customer customer) throws ApplicationException {
 		
 		validateCreateCustomer(customer);
@@ -34,6 +39,11 @@ public class CustomerController {
 		this.customerDao.createCustomer(customer);
 	}
 	
+	/**
+	 * Removing customer from customer table.
+	 * @param customerID - a long parameter represent the ID of the requested customer.
+	 * @throws ApplicationException
+	 */
 	public void removeCustomerByCustomerID(Long customerID) throws ApplicationException {
 		if(customerID==null) {
 			throw new ApplicationException(ErrorType.BAD_INPUT, DateUtils.getCurrentDateAndTime()
@@ -44,6 +54,11 @@ public class CustomerController {
 		
 	}
 	
+	/**
+	 * Updating a customer in the customer table. All the fields will be updated according to the ID of the customer object.
+	 * @param customer
+	 * @throws ApplicationException
+	 */
 	public void updateCustomer(Customer customer) throws ApplicationException {
 		
 		validateUpdateCustomer(customer);
@@ -53,6 +68,12 @@ public class CustomerController {
 		
 	}
 	
+	/**
+	 * Getting information of a customer.
+	 * @param customerID - a long parameter represent the ID of the requested customer.
+	 * @return Customer object of the requested customer.
+	 * @throws ApplicationException
+	 */
 	public Customer getCustomerByCustomerId(Long customerID) throws ApplicationException {
 		if(customerID==null) {
 			throw new ApplicationException(ErrorType.BAD_INPUT, DateUtils.getCurrentDateAndTime()
@@ -67,6 +88,12 @@ public class CustomerController {
 		return customer;
 	}
 	
+	/**
+	 * Getting information of a customer by name.
+	 * @param customerName a String parameter represent the name of the requested customer.
+	 * @return List of customers object of the requested customer name.
+	 * @throws ApplicationException
+	 */
 	public List<Customer> getCustomersByCustomerName(String customerName) throws ApplicationException {
 		if (!ValidationUtils.isValidNameFormat(customerName)) {
 			throw new ApplicationException(ErrorType.INVALID_PARAMETER, DateUtils.getCurrentDateAndTime()
@@ -83,6 +110,12 @@ public class CustomerController {
 		return customers;
 	}
 
+	/**
+	 * Getting information of a customer by e-mail.
+	 * @param customerEmail - a String parameter represent the e-mail of the requested customer.
+	 * @return Customer object of the requested customer.
+	 * @throws ApplicationException
+	 */
 	public Customer getCustomerByCustomerEmail(String customerEmail) throws ApplicationException {
 		if (!ValidationUtils.isValidEmailFormat(customerEmail)) {
 			throw new ApplicationException(ErrorType.INVALID_PARAMETER, DateUtils.getCurrentDateAndTime()
@@ -99,6 +132,11 @@ public class CustomerController {
 		return customer;
 	}
 
+	/**
+	 * Getting list of all customers in DB.
+	 * @return List collection of all the customers in the customer table.
+	 * @throws ApplicationException
+	 */
 	public List<Customer> getAllCustomers() throws ApplicationException{
 		
 		List<Customer> customers = this.customerDao.getAllCustomers();
@@ -112,6 +150,13 @@ public class CustomerController {
 		
 	}
 
+	/**
+	 * Logging in to web site.
+	 * @param customerEmail - String of the customer email.
+	 * @param customerPassword - String of that customer password.
+	 * @return The company object that fits the parameters.
+	 * @throws ApplicationException
+	 */
 	public Customer login (String customerEmail, String customerPassword) throws ApplicationException {
 		
 		validateCustomer(new Customer("Valid Name", customerPassword, customerEmail));
@@ -119,6 +164,11 @@ public class CustomerController {
 		return this.customerDao.login(customerEmail, customerPassword);
 	}
 
+	/**
+	 * Validating company object for update. In case of invalid parameter, ApplicationException will be thrown.
+	 * @param customer - customer object to validate.
+	 * @throws ApplicationException
+	 */
 	private void validateUpdateCustomer(Customer customer) throws ApplicationException {
 
 		validateCustomer(customer);
@@ -132,6 +182,11 @@ public class CustomerController {
 		
 	}
 
+	/**
+	 * Validating customer object for update. In case of invalid parameter, ApplicationException will be thrown.
+	 * @param customer - customer object to validate.
+	 * @throws ApplicationException
+	 */
 	private void validateCreateCustomer(Customer customer) throws ApplicationException {
 
 		validateCustomer(customer);
@@ -145,6 +200,11 @@ public class CustomerController {
 		
 	}
 
+	/**
+	 * Validating customer object for creation. In case of invalid parameter, ApplicationException will be thrown
+	 * @param customer - customer object to validate.
+	 * @throws ApplicationException
+	 */
 	private void validateCustomer(Customer customer) throws ApplicationException {
 
 		List<InputErrorType> errorTypes = new ArrayList<>();

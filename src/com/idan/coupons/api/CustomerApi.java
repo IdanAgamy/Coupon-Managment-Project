@@ -38,21 +38,39 @@ public class CustomerApi {
 		customerController = new CustomerController();
 	}
 
+	/**
+	 * Getting list of all customers in DB.
+	 * @return List collection of all the customers in the customer table.
+	 * @throws ApplicationException
+	 */
 	@GET
 	//http://localhost:8080/CouponPhaseTwo/rest/customers
 	public List<Customer> getAllCustomers() throws ApplicationException {
 		return customerController.getAllCustomers();
 	}
 
+	/**
+	 * Getting information of a customer.
+	 * @param request - an HttpServletRequest object, for validating use.
+	 * @param customerId - a long parameter represent the ID of the requested customer.
+	 * @return Customer object of the requested customer.
+	 * @throws ApplicationException
+	 */
 	@GET
 	@Path("/{customerId}")
 	//http://localhost:8080/CouponPhaseTwo/rest/customers/2
-	public Customer getUser(@Context HttpServletRequest request, @PathParam("customerId") long customerId) throws ApplicationException, JSONException{
-		// Will update the company in the DB only if the changes are made by the admin or the same company.
+	public Customer getUser(@Context HttpServletRequest request, @PathParam("customerId") long customerId) throws ApplicationException{
+		// Will update the company in the DB only if the changes are made by the admin or the same customer.
 		ValidationUtils.ValidateUser(request, customerId);
 		return customerController.getCustomerByCustomerId(customerId);
 	}
 
+	/**
+	 * Getting information of a customer by name.
+	 * @param customerName - a String parameter represent the name of the requested customer.
+	 * @return List of customers object of the requested customer name.
+	 * @throws ApplicationException
+	 */
 	@GET
 	@Path("/byCustomerName")
 	//http://localhost:8080/CouponPhaseTwo/rest/customers/byCustomerName?customerName=patrick
@@ -61,7 +79,12 @@ public class CustomerApi {
 		return customerController.getCustomersByCustomerName(customerName);
 	}
 
-
+	/**
+	 * Getting information of a customer by e-mail.
+	 * @param customerEmail - a String parameter represent the e-mail of the requested customer.
+	 * @return Customer object of the requested customer.
+	 * @throws ApplicationException
+	 */
 	@GET
 	@Path("/{customerEmail}/byCustomerEmail")
 	//http://localhost:8080/CouponPhaseTwo/rest/customers/Picard@EnterpriseD/byCustomerEmail
@@ -70,6 +93,11 @@ public class CustomerApi {
 		return customerController.getCustomerByCustomerEmail(customerEmail);
 	}
 
+	/**
+	 * Creating a customer in the DB.
+	 * @param customer - the customer as a Customer object to add to the DB.
+	 * @throws ApplicationException
+	 */
 	@POST
 	//http://localhost:8080/CouponPhaseTwo/rest/customers/
 	public void createCustomer(Customer customer) throws ApplicationException{
@@ -77,21 +105,33 @@ public class CustomerApi {
 		customerController.createCustomer(customer);
 	}
 
+	/**
+	 * Updating a customer in the customer table. All the fields will be updated according to the ID of the customer object.
+	 * @param request - an HttpServletRequest object, for validating use.
+	 * @param customer - the customer as a Customer object to be updated in the DB.
+	 * @throws ApplicationException
+	 */
 	@PUT
 	//http://localhost:8080/CouponPhaseTwo/rest/customers/
 	public void updateUser (@Context HttpServletRequest request, Customer customer) throws ApplicationException{
-		// Will update the company in the DB only if the changes are made by the admin or the same company.
+		// Will update the customer in the DB only if the changes are made by the admin or the same customer.
 		Long customerID = customer.getCustomerId();
 		ValidationUtils.ValidateUser(request, customerID);
 		System.out.println(customer);
 		customerController.updateCustomer(customer);
 	}
 
+	/**
+	 * Removing customer from customer table.
+	 * @param request - an HttpServletRequest object, for validating use.
+	 * @param customerId - a long parameter represent the ID of the requested customer.
+	 * @throws ApplicationException
+	 */
 	@DELETE
 	@Path("/{customerId}")
 	//http://localhost:8080/CouponPhaseTwo/rest/customers/2
 	public void removeUser(@Context HttpServletRequest request, @PathParam("customerId") long customerId) throws ApplicationException{
-		// Will update the company in the DB only if the changes are made by the admin or the same company.
+		// Will update the customer in the DB only if the changes are made by the admin or the same customer.
 		ValidationUtils.ValidateUser(request, customerId);
 		System.out.println(customerId);
 		customerController.removeCustomerByCustomerID(customerId);
