@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,10 +34,15 @@ public class LoginApi {
 	public void hhhyy(@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		
 		Cookie[] cookies = request.getCookies();
-		for (Cookie c: cookies) {
-			System.out.println(c.getName() +" " + c.getValue());
-			
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				System.out.println(c.getName() + " " + c.getValue());
+
+			} 
 		}
+		
+		HttpSession session = request.getSession(false);
+		System.out.println(session);
 	}
 	
 	@POST

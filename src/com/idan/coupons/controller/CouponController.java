@@ -77,6 +77,10 @@ public class CouponController {
 		
 	}
 	
+	public void removeBoughtCouponByCouponIDandCustomerID(Long couponID, Long customerID) throws ApplicationException {
+		couponDao.removeBoughtCouponByCouponIDandCustomerID(couponID, customerID);
+	}
+	
 	public void removeCustomerPurchasesByCustomerID(Long customerID) throws ApplicationException {
 		couponDao.removeCustomerPurchasesByCustomerID(customerID);
 	}

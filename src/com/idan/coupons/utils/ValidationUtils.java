@@ -2,6 +2,12 @@ package com.idan.coupons.utils;
 
 import java.util.GregorianCalendar;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.idan.coupons.enums.ErrorType;
+import com.idan.coupons.enums.UserType;
+import com.idan.coupons.exceptions.ApplicationException;
+
 public class ValidationUtils {
 
 
@@ -276,6 +282,44 @@ public class ValidationUtils {
 		GregorianCalendar startDate = DateUtils.strToDateConverter(couponStartDate);
 		
 		return startDate.before(new GregorianCalendar());
+	}
+	
+	public static void ValidateUser(HttpServletRequest request, long companyId) throws ApplicationException {
+		String userType = (String) request.getAttribute("userType");
+		String userIDstr = (String) request.getAttribute("userID");
+		Long userID = null;
+		if(userIDstr == null || userType == null) {
+			throw new ApplicationException(ErrorType.SYSTEM_ERROR, DateUtils.getCurrentDateAndTime()
+					+" System error, problem with cookies.");
+		}
+
+		userID = Long.parseLong(userIDstr);
+
+		if ( !userType.equals(UserType.ADMIN.name()) || userID != companyId) {
+			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
+					+" Unauthorized action.");
+		} 
+	}
+	
+
+
+	public static Long validateAndGetetCustomerID(HttpServletRequest request) throws ApplicationException {
+		String userType = (String) request.getAttribute("userType");
+		String userIDstr = (String) request.getAttribute("userID");
+		Long userID = null;
+
+		if(userType.equals(UserType.CUSTOMER.name())) {
+			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
+					+" Unauthorized action.");
+		}
+
+		if(userIDstr == null) {
+			throw new ApplicationException(ErrorType.SYSTEM_ERROR, DateUtils.getCurrentDateAndTime()
+					+" System error, problem with cookies.");
+		}
+
+		userID = Long.valueOf(userIDstr);
+		return userID;
 	}
 	
 	

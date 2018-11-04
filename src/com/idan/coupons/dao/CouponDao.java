@@ -205,7 +205,7 @@ public class CouponDao{
 	 * @param couponID - the couponID as a long to remove from the DB.
 	 * @throws ApplicationException 
 	 */
-	public void removeBoughtCouponByID(Long couponID) throws ApplicationException {
+	public void removeBoughtCouponByCouponIDandCustomerID(Long couponID, Long customerID) throws ApplicationException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -215,9 +215,10 @@ public class CouponDao{
 			connection = JdbcUtils.getConnection();
 			
 			// Creating a string which will contain the query.
-			String sql = "DELETE FROM customer_coupon WHERE CouponID = ?;";
+			String sql = "DELETE FROM customer_coupon WHERE CouponID = ? and CustomerID =?;";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setLong(1, couponID);
+			preparedStatement.setLong(2, customerID);
 			// TODO delete print
 			System.out.println(preparedStatement); // Checking the query sent to the server
 			preparedStatement.executeUpdate();
@@ -502,7 +503,7 @@ public class CouponDao{
 	}
 	
 	/**
-	 * Sending a query to the DB to get all the coupons in coupon table up to requested date.
+	 * Sending a query to the DB to get all the coupons in coupon table up to requested expiration date.
 	 * @param endDate - String parameter of the latest end date of the coupon.
 	 * @return List collection of all the coupons in the coupon table up to the requested date.
 	 * @throws ApplicationException 
@@ -950,7 +951,7 @@ public class CouponDao{
 		coupon.setCouponMessage(resultSet.getString("CouponMessage"));
 		coupon.setCouponPrice(resultSet.getDouble("CouponPrice"));
 		coupon.setCouponImage(resultSet.getString("CouponImage"));
-		coupon.setCompanyID(resultSet.getInt("companyID"));
+		coupon.setCompanyID(resultSet.getLong("companyID"));
 		
 		return coupon;
 	}

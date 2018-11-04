@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/rest")
-public class AccessFilter implements Filter{
+import com.idan.coupons.utils.LoginUtils;
+
+@WebFilter("/rest/*")
+public class LoginFilter implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -24,18 +26,22 @@ public class AccessFilter implements Filter{
 		
 		HttpSession session = req.getSession(false);
 		String pageRequest = req.getRequestURL().toString();
-		if(session != null || pageRequest.endsWith("/login") || pageRequest.endsWith("/coupons") || pageRequest.endsWith("/companies")) {
+		if(LoginUtils.isDefultAccess(req, session, pageRequest)) {
 			Cookie[] cookies = req.getCookies();
-			for(Cookie cookie:cookies) {
-				req.setAttribute(cookie.getName(), cookie.getValue());
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					req.setAttribute(cookie.getName(), cookie.getValue());
+				} 
 			}
-			
+			chain.doFilter(request, response);
 			return;
 		}
 		HttpServletResponse res = (HttpServletResponse) response;
 		res.setStatus(401);
 		
 	}
+
+	
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {

@@ -11,111 +11,133 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+//import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.idan.coupons.beans.Company;
 import com.idan.coupons.controller.CompanyController;
-import com.idan.coupons.enums.ErrorType;
-import com.idan.coupons.enums.UserType;
+//import com.idan.coupons.enums.ErrorType;
 import com.idan.coupons.exceptions.ApplicationException;
-import com.idan.coupons.utils.DateUtils;
+//import com.idan.coupons.utils.CookieUtil;
+//import com.idan.coupons.utils.DateUtils;
+import com.idan.coupons.utils.ValidationUtils;
 
 @Path("/companies")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CompanyApi {
-	
+
 	private CompanyController companyController;
-	
+
 	public CompanyApi() {
 		this.companyController = new CompanyController();
 	}
-	
+
+	/**
+	 * Sending list of all companies in DB.
+	 * @return List collection of all the companies in the company table
+	 * @throws ApplicationException
+	 */
 	@GET
 	//http://localhost:8080/CouponPhaseTwo/rest/companies/
 	public List<Company> getAllCompanies() throws ApplicationException {
 		List<Company> companies = companyController.getAllCompanies();
-//		System.out.println(companies);
+		//		System.out.println(companies);
 		return companies;
 	}
 
-
+	/**
+	 * Getting information of a company.
+	 * @param companyId - a long parameter represent the ID of the requested company.
+	 * @return Company object of the requested company.
+	 * @throws ApplicationException
+	 */
 	@GET
 	@Path("/{companyId}")
 	//http://localhost:8080/CouponPhaseTwo/rest/companies/5
-	public Company getUser(@PathParam("companyId") long companyId) throws ApplicationException{
-//		System.out.println(companyController.getCompanyByComapnyId(companyId));
+	public Company getCompanyByComapnyId(@PathParam("companyId") long companyId) throws ApplicationException{
+		//		System.out.println(companyController.getCompanyByComapnyId(companyId));
 		return companyController.getCompanyByComapnyId(companyId);
 	}
-	
-	
+
+	/**
+	 * Getting information of a company.
+	 * @param companyName - a String parameter represent the name of the requested company.
+	 * @return Company object of the requested company.
+	 * @throws ApplicationException
+	 */
 	@GET
-	@Path("/byName")
-	//http://localhost:8080/CouponPhaseTwo/rest/companies/coca-cola/byName
-	public Company getCompanyByName(@QueryParam("companyName") String companyName) throws ApplicationException{
-//		System.out.println(companyController.getCompanyByComapnyName(companyName));
+	@Path("/{companyName}/byCompanyName")
+	//http://localhost:8080/CouponPhaseTwo/rest/companies/coca cola/byCompanyName
+	public Company getCompanyByName(@PathParam("companyName") String companyName) throws ApplicationException{
+		//		System.out.println(companyController.getCompanyByComapnyName(companyName));
 		return companyController.getCompanyByComapnyName(companyName);
 	}
-	
 
+	/**
+	 * 
+	 * Getting information of a company.
+	 * @param companyName - a String parameter represent the e-mail of the requested company.
+	 * @return Company object of the requested company.
+	 * @throws ApplicationException
+	 */
 	@GET
-	@Path("/acc/byEmail")
-	//http://localhost:8080/CouponPhaseTwo/rest/companies/HP@gmail.com/byEmail
-	public Company getCompanyByEmail(@QueryParam("companyEmail") String companyEmail) throws ApplicationException{
-//		System.out.println(companyController.getCompanyByComapnyEmail(companyEmail));
+	@Path("/{companyEmail}/byCompanyEmail")
+	//http://localhost:8080/CouponPhaseTwo/rest/companies/HP@gmail.com/byCompanyEmail
+	public Company getCompanyByEmail(@PathParam("companyEmail") String companyEmail) throws ApplicationException{
+		//		System.out.println(companyController.getCompanyByComapnyEmail(companyEmail));
 		return companyController.getCompanyByComapnyEmail(companyEmail);
 	}
-	
+
+	/**
+	 * Creating a company in the DB.
+	 * @param company - the company as a Company object to add to the DB.
+	 * @throws ApplicationException
+	 */
 	@POST
 	public void createCompany(Company company) throws ApplicationException{
-		System.out.println(company);
-		companyController.createCompany(company);
+		if (company != null) {
+			System.out.println(company);
+			companyController.createCompany(company);
+		}
 	}
-	
+
+	/**
+	 * Updating a company in the company table. All the fields will be updated according to the ID of the Company object.
+	 * @param request - an HttpServletRequest object, for validating use.
+	 * @param company - the company as a Company object to be updated in the DB.
+	 * @throws ApplicationException
+	 */
 	@PUT
 	public void updateUser (@Context HttpServletRequest request, Company company) throws ApplicationException{
-		
-		if (isAuthorizedToChange(request, company.getCompanyId())) {
-			System.out.println(company);
-			companyController.updateCompany(company);
-		}
-		else {
-			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
-					+" Unauthorized action.");
-		}
+		// Will update the company in the DB only if the changes are made by the admin or the same company.
+		ValidationUtils.ValidateUser(request, company.getCompanyId());
+		//			System.out.println(company);
+		companyController.updateCompany(company);
 	}
-	
+
+	/**
+	 * Removing company from company table.
+	 * @param request - an HttpServletRequest object, for validating use.
+	 * @param companyId - the company as a Company object to remove from the DB.
+	 * @throws ApplicationException
+	 */
 	@DELETE
 	@Path("/{companyId}")
 	//http://localhost:8080/CouponPhaseTwo/rest/companies/10
 	public void removeUser(@Context HttpServletRequest request, @PathParam("companyId") long companyId) throws ApplicationException{
-		
-		if (isAuthorizedToChange(request, companyId)) {
-			System.out.println(companyId);
-			companyController.removeCompanyByCompanyID(companyId);
-		}
-		else {
-			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
-					+" Unauthorized action.");
-		}
+
+		// Will update the company in the DB only if the changes are made by the admin or the same company.
+		ValidationUtils.ValidateUser(request, companyId);
+		System.out.println(companyId);
+		companyController.removeCompanyByCompanyID(companyId);
 	}
-	
-	private boolean isAuthorizedToChange(HttpServletRequest request, long companyId) {
-		String userType = (String) request.getAttribute("userType");
-		long userID = Long.parseLong((String) request.getAttribute("userID"));
-		
-		if(userType.equals(UserType.ADMIN.name()) || userID == companyId) {
-			return true;
-		}
-		
-		
-		return false;
-	}
-	
-	
-	/*
+
+
+
+
+	/* For debugging use only:
 	 * Content-Type      application/json
 	 *  Json object
 	 {

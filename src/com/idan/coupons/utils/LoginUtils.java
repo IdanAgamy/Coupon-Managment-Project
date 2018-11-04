@@ -1,26 +1,21 @@
-//package com.idan.coupons.utils;
-//
-//import com.idan.coupons.beans.UserLoginInfo;
-//import com.idan.coupons.controller.CompanyController;
-//import com.idan.coupons.controller.CustomerController;
-//import com.idan.coupons.enums.UserType;
-//import com.idan.coupons.exceptions.ApplicationException;
-//
-//public class LoginUtils {
-//
-//	public static boolean login(UserLoginInfo userLoginInfo) throws ApplicationException {
-//
-//		if(userLoginInfo.getUserType()==UserType.COMPANY) {
-//			CompanyController companyController = new CompanyController();
-//			return companyController.login(userLoginInfo.getName(), userLoginInfo.getPassword());
-//		}
-//		
-//		if(userLoginInfo.getUserType()==UserType.CUSTOMER) {
-//			CustomerController customerController = new CustomerController();
-//			return customerController.login(userLoginInfo.getEmail(), userLoginInfo.getPassword());
-//		}
-//		
-//		return false;
-//	}
-//
-//}
+package com.idan.coupons.utils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+
+public class LoginUtils {
+
+	public static boolean isDefultAccess(HttpServletRequest req, HttpSession session, String pageRequest) {
+		return session != null || pageRequest.endsWith("/login") || 
+							 (pageRequest.endsWith("/coupons") &&  req.getMethod().equals("GET")) ||
+							 pageRequest.endsWith("/byCouponType")||
+							 pageRequest.endsWith("/upToPrice")||
+							 pageRequest.endsWith("/upToEndDate")||
+							 pageRequest.endsWith("/byCompanyID")||
+							 (pageRequest.endsWith("/customers") &&  req.getMethod().equals("POST") ) || 
+							 (pageRequest.endsWith("/companies") && (req.getMethod().equals("GET") || req.getMethod().equals("POST"))) ||
+							 pageRequest.endsWith("/byCompanyName");
+	}
+
+}

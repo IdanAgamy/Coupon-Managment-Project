@@ -5,15 +5,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Customer{
 	
-	private long customerId;
+	private Long customerId;
 	private String customerName;
 	private String customerPassword;
 	private String customerEmail;
 	
-	public long getCustomerId() {
+	public Long getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(long id) {
+	public void setCustomerId(Long id) {
 		this.customerId = id;
 	}
 	public String getCustomerName() {
@@ -41,7 +41,7 @@ public class Customer{
 		this.customerPassword = customerPassword;
 		this.customerEmail = customerEmail;
 	}
-	public Customer(long customerId, String customerName, String customerPassword, String customerEmail) {
+	public Customer(Long customerId, String customerName, String customerPassword, String customerEmail) {
 		this.customerId = customerId;
 		this.customerName = customerName;
 		this.customerPassword = customerPassword;

@@ -12,16 +12,19 @@ public class ExceptionHandler implements ExceptionMapper<Throwable>{
 	@Override
 	public Response toResponse(Throwable exception) {
 		ApplicationError error;
-		 exception.printStackTrace();
 		if (exception instanceof ApplicationException) {
 			ApplicationException  applicationException = (ApplicationException) exception;
 			error = new ApplicationError(applicationException.getType().getNumber(),applicationException.getType().name(), exception.getMessage());
 			if (error.getErrorCode() == 603) {
 				error.setInputErrorTypes(applicationException.getTypes()); 
 			}
+			if (error.getErrorCode() == 605) {
+				//TODO implement logger.
+			}
 			return Response.status(error.getErrorCode()).entity(error).build();
 		}
 		
+		exception.printStackTrace();
 		//TODO implement logger.
 		error = new ApplicationError(601, "General error",exception.getMessage());
 		return Response.status(error.getErrorCode()).entity(error).build();

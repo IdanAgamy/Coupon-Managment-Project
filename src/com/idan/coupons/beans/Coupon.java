@@ -8,7 +8,7 @@ import com.idan.coupons.enums.CouponType;
 @XmlRootElement
 public class Coupon{
 	
-	private long couponId;
+	private Long couponId;
 	private String couponTitle;
 	private String couponStartDate; //yyyy-mm-dd
 	private String couponEndDate;	//yyyy-mm-dd
@@ -17,12 +17,12 @@ public class Coupon{
 	private String couponMessage;
 	private double couponPrice;
 	private String couponImage;
-	private long companyID;
+	private Long companyID;
 	
-	public long getCouponId() {
+	public Long getCouponId() {
 		return couponId;
 	}
-	public void setCouponId(long couponId) {
+	public void setCouponId(Long couponId) {
 		this.couponId = couponId;
 	}
 	public String getCouponTitle() {
@@ -77,10 +77,10 @@ public class Coupon{
 		this.couponImage = couponImage;
 	}
 	
-	public long getCompanyID() {
+	public Long getCompanyID() {
 		return companyID;
 	}
-	public void setCompanyID(long companyID) {
+	public void setCompanyID(Long companyID) {
 		this.companyID = companyID;
 	}
 	
@@ -91,7 +91,7 @@ public class Coupon{
 	
 	
 	public Coupon(String couponTitle, String couponStartDate, String couponEndDate, int couponAmount,
-			CouponType couponType, String couponMessage, double couponPrice, String couponImage, long companyID) {
+			CouponType couponType, String couponMessage, double couponPrice, String couponImage, Long companyID) {
 		super();
 		this.couponTitle = couponTitle;
 		this.couponStartDate = couponStartDate;
@@ -105,8 +105,8 @@ public class Coupon{
 	}
 	
 	
-	public Coupon(long couponId, String couponTitle, String couponStartDate, String couponEndDate, int couponAmount,
-			CouponType couponType, String couponMessage, double couponPrice, String couponImage, long companyID) {
+	public Coupon(Long couponId, String couponTitle, String couponStartDate, String couponEndDate, int couponAmount,
+			CouponType couponType, String couponMessage, double couponPrice, String couponImage, Long companyID) {
 		super();
 		this.couponId = couponId;
 		this.couponTitle = couponTitle;

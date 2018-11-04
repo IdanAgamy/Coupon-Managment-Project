@@ -100,12 +100,12 @@ public class Tester {
 
 	private static void removeExpiredCouponTest(CouponDao couponDao)  throws ApplicationException, IOException {
 		
-		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2));
-		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2));
-		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2));
-		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2));
-		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2));
-		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2));
+		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2l));
+		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2l));
+		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2l));
+		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2l));
+		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2l));
+		couponDao.createCoupon(new Coupon("just meat","2000-10-10","2018-09-02",2,CouponType.Restaurants,"just eat meat",20.20,":D",2l));
 		
 		
 		verify("Verify the added coupons, then press enter");
