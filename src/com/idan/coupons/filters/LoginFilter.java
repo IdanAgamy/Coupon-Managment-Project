@@ -20,13 +20,13 @@ import com.idan.coupons.utils.LoginUtils;
 public class LoginFilter implements Filter{
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
+		HttpServletRequest req = (HttpServletRequest) request;		
 		HttpSession session = req.getSession(false);
-		String pageRequest = req.getRequestURL().toString();
-		if(LoginUtils.isDefultAccess(req, session, pageRequest)) {
+		
+		if(session != null || LoginUtils.isDefaultAccess((HttpServletRequest) request)) {
+
 			Cookie[] cookies = req.getCookies();
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {

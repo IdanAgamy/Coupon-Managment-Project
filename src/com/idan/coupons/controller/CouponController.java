@@ -13,7 +13,7 @@ import com.idan.coupons.dao.CouponDao;
 import com.idan.coupons.enums.CouponType;
 import com.idan.coupons.enums.ErrorType;
 import com.idan.coupons.enums.InputErrorType;
-import com.idan.coupons.enums.OrderType;
+//import com.idan.coupons.enums.OrderType;
 import com.idan.coupons.exceptions.ApplicationException;
 import com.idan.coupons.utils.DateUtils;
 import com.idan.coupons.utils.ValidationUtils;

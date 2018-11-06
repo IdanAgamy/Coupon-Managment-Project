@@ -1,8 +1,8 @@
 package com.idan.coupons.threads;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Timer;
+//import java.util.Calendar;
+//import java.util.GregorianCalendar;
+//import java.util.Timer;
 import java.util.TimerTask;
 
 import com.idan.coupons.controller.CouponController;

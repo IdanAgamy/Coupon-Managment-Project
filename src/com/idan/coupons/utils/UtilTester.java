@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.idan.coupons.beans.UserLoginInfo;
-import com.idan.coupons.enums.UserType;
+//import com.idan.coupons.beans.UserLoginInfo;
+//import com.idan.coupons.enums.UserType;
 import com.idan.coupons.exceptions.ApplicationException;
 
 public class UtilTester {
 	
 	public static void main(String[] args) throws ApplicationException {
 		
-//		DateUtilsTester();
-//		ValidationUtilsTester();
+		DateUtilsTester();
+		ValidationUtilsTester();
 		LoginTester();
 		 
 		System.out.println("**********End of test************");

@@ -3,7 +3,7 @@ package com.idan.coupons.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.idan.coupons.beans.Company;
+//import com.idan.coupons.beans.Company;
 import com.idan.coupons.beans.Customer;
 //import com.idan.coupons.dao.CompanyDao;
 //import com.idan.coupons.dao.CouponDao;

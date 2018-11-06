@@ -269,6 +269,12 @@ public class ValidationUtils {
 		
 	}
 	
+	/**
+	 * Validating the relation of start date of a coupon and the end date.
+	 * @param couponStartDate - String of the start date
+	 * @param couponEndDate - String of the end date
+	 * @return if the start date of a coupon is after the end date.
+	 */
 	public static boolean isStartEndDateMiss(String couponStartDate, String couponEndDate) {
 
 		GregorianCalendar startDate = DateUtils.strToDateConverter(couponStartDate);
@@ -277,6 +283,11 @@ public class ValidationUtils {
 		return startDate.after(endDate);
 	}
 	
+	/**
+	 * Validating the start date.
+	 * @param couponStartDate - String of the start date
+	 * @return if the input of the start date already passed.
+	 */
 	public static boolean isStartDateAlreadyPassed(String couponStartDate) {
 
 		GregorianCalendar startDate = DateUtils.strToDateConverter(couponStartDate);
@@ -284,7 +295,13 @@ public class ValidationUtils {
 		return startDate.before(new GregorianCalendar());
 	}
 	
-	public static void ValidateUser(HttpServletRequest request, long companyId) throws ApplicationException {
+	/**
+	 * Validating if the user can request an action.
+	 * @param request - the request from the client.
+	 * @param requestId - Id of the request.
+	 * @throws ApplicationException
+	 */
+	public static void ValidateUser(HttpServletRequest request, long requestId) throws ApplicationException {
 		String userType = (String) request.getAttribute("userType");
 		String userIDstr = (String) request.getAttribute("userID");
 		Long userID = null;
@@ -295,7 +312,7 @@ public class ValidationUtils {
 
 		userID = Long.parseLong(userIDstr);
 
-		if ( !userType.equals(UserType.ADMIN.name()) || userID != companyId) {
+		if ( !userType.equals(UserType.ADMIN.name()) || userID != requestId) {
 			throw new ApplicationException(ErrorType.UNAUTHORIZED_ACTION, DateUtils.getCurrentDateAndTime()
 					+" Unauthorized action.");
 		} 

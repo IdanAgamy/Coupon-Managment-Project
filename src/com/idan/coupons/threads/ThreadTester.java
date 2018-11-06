@@ -1,14 +1,14 @@
 package com.idan.coupons.threads;
 
-import java.sql.Connection;
+//import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
+//import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Timer;
-import java.util.TimerTask;
+//import java.util.TimerTask;
 
-import com.idan.coupons.utils.JdbcUtils;
+//import com.idan.coupons.utils.JdbcUtils;
 
 public class ThreadTester {
 	
@@ -36,7 +36,7 @@ public class ThreadTester {
 //			}
 //		};
 		
-		Date date = new Date();
+//		Date date = new Date();
 		GregorianCalendar gc = new GregorianCalendar();
 		
 		gc.add(Calendar.SECOND, 5);

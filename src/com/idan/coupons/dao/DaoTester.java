@@ -23,9 +23,9 @@ public class DaoTester {
 		Thread.sleep(3000);
 		
 		
-//		companyTest();
+		companyTest();
 		couponTest();
-//		customerTest();
+		customerTest();
 		
 		
 		resetAllAI();
@@ -37,27 +37,27 @@ public class DaoTester {
 		CouponDao cd = new CouponDao();
 		System.out.println("**********Testing couponDao************");
 		
-//		createCouponTest(cd);
-//		updateCouponTest(cd);
-//		removeCouponByIDTest(cd);
-//		buyCouponTest(cd);
-//		getCouponByCouponIdTest(cd);
-//		getAllCouponsTest(cd);
+		createCouponTest(cd);
+		updateCouponTest(cd);
+		removeCouponByIDTest(cd);
+		buyCouponTest(cd);
+		getCouponByCouponIdTest(cd);
+		getAllCouponsTest(cd);
 		removeBoughtCouponByIDTest(cd);
 //		removeCustomerPurchasesByCustomerIDTest(cd);
-////		removeCouponByCompanyIDTest(cd);
-//		getCouponByTypeTest(cd);
-//		getCouponInOrderByPriceTest(cd);
-//		getCouponsUpToPriceTest(cd);
-//		getCouponsUpToEndDateTest(cd);
-//		getCouponsByCompanyIDTest(cd);
-//		getCouponsByCustomerIDTest(cd);
-////		getCouponAmountByCouponIDTest(cd);
-////		getBoughtCouponCountByCouponIDTest(cd);
-////		getCouponIDsByEndDateTest(cd);
-//		isCouponExistByTitleTest(cd);
-//		isCouponTitleExistForUpdateTest(cd);
-//		isCouponAlreadyPurchasedByCustomerIDTest(cd);
+//		removeCouponByCompanyIDTest(cd);
+		getCouponByTypeTest(cd);
+		getCouponInOrderByPriceTest(cd);
+		getCouponsUpToPriceTest(cd);
+		getCouponsUpToEndDateTest(cd);
+		getCouponsByCompanyIDTest(cd);
+		getCouponsByCustomerIDTest(cd);
+//		getCouponAmountByCouponIDTest(cd);
+//		getBoughtCouponCountByCouponIDTest(cd);
+//		getCouponIDsByEndDateTest(cd);
+		isCouponExistByTitleTest(cd);
+		isCouponTitleExistForUpdateTest(cd);
+		isCouponAlreadyPurchasedByCustomerIDTest(cd);
 		
 	}
 	
