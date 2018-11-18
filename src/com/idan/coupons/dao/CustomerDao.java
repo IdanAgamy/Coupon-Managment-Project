@@ -48,6 +48,7 @@ public class CustomerDao{
 			// TODO delete print
 			System.out.println(preparedStatement); // Checking the query sent to the server
 			
+			preparedStatement.executeUpdate();
 			ResultSet resultSet = preparedStatement.getGeneratedKeys();
 			if(resultSet.next()) {
 				return resultSet.getLong(1);

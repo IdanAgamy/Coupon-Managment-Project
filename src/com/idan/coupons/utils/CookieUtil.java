@@ -57,6 +57,8 @@ public class CookieUtil {
 	 */
 	public static HttpServletResponse addCookies(HttpServletResponse response, List<Cookie> loginCookies) {
 		for(Cookie c:loginCookies) {
+			c.setPath("/");
+			c.setMaxAge(30 *60);
 			response.addCookie(c);
 		}
 		return response;

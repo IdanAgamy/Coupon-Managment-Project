@@ -5,6 +5,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import com.idan.coupons.beans.ApplicationError;
+import com.idan.coupons.enums.ErrorType;
 
 @Provider
 public class ExceptionHandler implements ExceptionMapper<Throwable>{
@@ -15,11 +16,11 @@ public class ExceptionHandler implements ExceptionMapper<Throwable>{
 		if (exception instanceof ApplicationException) {
 			ApplicationException  applicationException = (ApplicationException) exception;
 			error = new ApplicationError(applicationException.getType().getNumber(),applicationException.getType().name(), exception.getMessage());
-			if (error.getErrorCode() == 603) {
+			if (applicationException.getType() == ErrorType.INVALID_PARAMETER) {
 				error.setInputErrorTypes(applicationException.getTypes()); 
 			}
 			// In case of SYSTEM ERROR we will log the error
-			if (error.getErrorCode() == 605) {
+			if (applicationException.getType() == ErrorType.SYSTEM_ERROR) {
 				//TODO implement logger.
 			}
 			return Response.status(error.getErrorCode()).entity(error).build();

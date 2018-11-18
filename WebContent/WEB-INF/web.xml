@@ -16,6 +16,7 @@
     <servlet-name>jersey-serlvet</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+  
   <servlet>  
    <servlet-name>InitiationServlet</servlet-name>  
    <servlet-class>com.idan.coupons.servlets.InitiationServlet</servlet-class>  

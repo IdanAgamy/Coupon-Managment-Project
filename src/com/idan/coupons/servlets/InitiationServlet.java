@@ -27,6 +27,7 @@ public class InitiationServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public InitiationServlet() {
+    	
     	startDeleteExpiredCoupons();
     	
     }
