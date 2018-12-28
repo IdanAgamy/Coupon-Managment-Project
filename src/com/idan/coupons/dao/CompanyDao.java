@@ -45,8 +45,7 @@ public class CompanyDao{
 			preparedStatement.setString(2, company.getCompanyPassword());
 			preparedStatement.setString(3, company.getCompanyEmail());
 			
-			// TODO delete print
-			System.out.println(preparedStatement); // Checking the query sent to the server
+			
 
 			// Executing the query.
 			preparedStatement.executeUpdate();
